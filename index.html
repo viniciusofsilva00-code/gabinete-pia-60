@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8">
+<title>Gabinete da Pia 60</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* layout: coluna única de leitura (72rem) sobre papel quadriculado; seções numeradas na ordem real do trabalho */
+:root{
+  --bg:#fafafa; --surface:#ffffff; --fg:#0a0a0a; --muted:#5c5c66; --line:#e7e7ec; --grid:#0a0a0a0b;
+  --neon:#ff2bd6; --neon-strong:#e6007e; --neon-soft:#ff2bd61a; --neon-mark:#ff2bd659;
+  --inverse-bg:#0a0a0a; --inverse-fg:#f4f4f5; --inverse-muted:#c9c9d1; --on-accent:#0a0a0a;
+  --ok:#147a3d; --ok-soft:#147a3d14; --warn:#8a5a00; --warn-soft:#f5a6231f; --bad:#b4232a; --bad-soft:#b4232a14;
+  --glow:0 0 0 1px #ff2bd659, 0 8px 30px -10px #ff2bd68c; --shadow-1:0 1px 2px #0a0a0a0f;
+  --sans:"Inter", ui-sans-serif, system-ui, sans-serif;
+  --display:"Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --max:72rem; --texto:42rem;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0a0a0a; --surface:#141417; --fg:#f4f4f5; --muted:#c9c9d1; --line:#2e2e35; --grid:#ffffff0b;
+  --neon-strong:#ff5ce0; --neon-soft:#ff2bd61f; --neon-mark:#ff2bd673; --inverse-bg:#1c0b19;
+  --ok:#5fd38d; --ok-soft:#5fd38d1a; --warn:#f5b84a; --warn-soft:#f5b84a1f; --bad:#ff7b7f; --bad-soft:#ff7b7f1a;
+  --glow:0 0 0 1px #ff2bd666, 0 8px 30px -10px #ff2bd6a6; --shadow-1:0 1px 2px #0000004d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0a0a0a; --surface:#141417; --fg:#f4f4f5; --muted:#c9c9d1; --line:#2e2e35; --grid:#ffffff0b;
+  --neon-strong:#ff5ce0; --neon-soft:#ff2bd61f; --neon-mark:#ff2bd673; --inverse-bg:#1c0b19;
+  --ok:#5fd38d; --ok-soft:#5fd38d1a; --warn:#f5b84a; --warn-soft:#f5b84a1f; --bad:#ff7b7f; --bad-soft:#ff7b7f1a;
+  --glow:0 0 0 1px #ff2bd666, 0 8px 30px -10px #ff2bd6a6; --shadow-1:0 1px 2px #0000004d; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 1rem/1.6 var(--sans);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px}
+::selection{background:var(--neon);color:var(--on-accent)}
+a{color:inherit;text-decoration-color:var(--neon-strong);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--neon-strong);outline-offset:2px}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--neon),transparent);opacity:.6}
+.top-in{max-width:var(--max);margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.mark{display:inline-flex;align-items:center;gap:10px;font:700 1.05rem/1 var(--mono);letter-spacing:-.02em;text-decoration:none}
+.chip{width:28px;height:28px;border-radius:8px;background:var(--inverse-bg);color:var(--neon);display:grid;place-items:center;font:700 .8rem/1 var(--mono);box-shadow:0 0 18px -4px #ff2bd6}
+.cursor{width:.55em;height:1em;background:var(--neon);display:inline-block;animation:blink 1.1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.nav{display:flex;gap:4px 14px;flex-wrap:wrap;font:500 .8rem/1.4 var(--mono);color:var(--muted);flex:1;min-width:0}
+.nav a{text-decoration:none}.nav a:hover{color:var(--fg)}
+
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:16px;padding-block:32px 96px}
+section{padding-block:56px 8px;scroll-margin-top:72px}
+.eyebrow{font:500 .75rem/1.4 var(--mono);color:var(--muted);letter-spacing:.04em;margin:0 0 8px}
+h1{font:700 clamp(2.2rem,6vw,3.815rem)/1.08 var(--display);letter-spacing:-.025em;margin:0 0 16px;text-wrap:balance}
+h2{font:700 clamp(1.6rem,4vw,2.441rem)/1.1 var(--display);letter-spacing:-.025em;margin:0 0 12px;text-wrap:balance}
+h3{font:600 1.2rem/1.3 var(--display);letter-spacing:-.02em;margin:0 0 8px}
+.hl{background:linear-gradient(transparent 62%,var(--neon-mark) 62%)}
+.lead{font-size:1.15rem;line-height:1.5;color:var(--muted);max-width:var(--texto);margin:0 0 24px}
+p,li{max-width:var(--texto)}
+.muted{color:var(--muted)}
+.mono{font-family:var(--mono)}
+.num{font-variant-numeric:tabular-nums}
+
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;box-shadow:var(--shadow-1);min-width:0}
+.card::before{content:"";position:absolute;left:24px;top:-1px;width:36px;height:3px;background:var(--neon);border-radius:0 0 2px 2px}
+.card.plain::before{display:none}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:16px}
+
+.tag{display:inline-flex;align-items:center;gap:4px;font:500 .68rem/1 var(--mono);letter-spacing:.05em;padding:4px 7px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--muted);white-space:nowrap;vertical-align:middle}
+.tag.prem{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
+.tag.conf{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
+.tag.ok{background:var(--ok-soft);border-color:transparent;color:var(--ok)}
+.tag.med{color:var(--muted)}
+
+.btn{font:500 .85rem/1 var(--mono);padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;transition:box-shadow .12s cubic-bezier(.2,.7,.2,1)}
+.btn:hover{box-shadow:var(--glow)}
+.btn.pri{background:var(--neon);color:var(--on-accent);border-color:transparent}
+.btn[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:transparent}
+
+/* resumo */
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:820px){.hero{grid-template-columns:1fr}}
+.shot{background:var(--surface);border:1px solid var(--line);border-radius:14px;aspect-ratio:4/3;max-width:100%;display:grid;place-items:center;overflow:hidden}
+.shot img{width:100%;height:100%;object-fit:contain}
+.dims{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 16px}
+.dim{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px}
+.dim b{display:block;font:700 1.6rem/1.1 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.dim span{font:500 .72rem/1.3 var(--mono);color:var(--muted)}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0 0 16px;font-size:.95rem}
+.facts dt{font:500 .75rem/1.6 var(--mono);color:var(--muted)}
+.facts dd{margin:0}
+.seal{display:flex;gap:12px;align-items:flex-start;border-radius:14px;padding:14px 16px;border:1px solid transparent}
+.seal.ok{background:var(--ok-soft);color:var(--fg)}
+.seal.bad{background:var(--bad-soft)}
+.seal .ico{font:700 .75rem/1 var(--mono);padding:6px 8px;border-radius:6px;white-space:nowrap}
+.seal.ok .ico{background:var(--ok);color:var(--bg)}
+.seal.bad .ico{background:var(--bad);color:var(--bg)}
+.checks{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:4px;font-size:.88rem}
+.checks li{display:grid;grid-template-columns:1.4rem 1fr;gap:6px;max-width:none}
+.checks .s{font:700 .8rem/1.6 var(--mono)}
+.checks .pass .s{color:var(--ok)} .checks .fail .s{color:var(--bad)}
+.checks small{color:var(--muted);display:block}
+details.more summary{cursor:pointer;font:500 .8rem/1.4 var(--mono);color:var(--muted);margin-top:8px}
+
+/* premissas */
+.warnbox{border:1px solid var(--line);background:var(--surface);border-radius:14px;overflow:hidden}
+.warnbox-h{background:var(--warn-soft);padding:14px 20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.warnbox-h strong{font:600 1rem/1.3 var(--display)}
+.prem-row{display:grid;grid-template-columns:minmax(0,1.3fr) 9.5rem minmax(0,1.6fr);gap:8px 20px;padding:16px 20px;border-top:1px solid var(--line);align-items:start}
+@media (max-width:760px){.prem-row{grid-template-columns:1fr}}
+.prem-row label.lbl{font-weight:600;display:block}
+.prem-row .how{font-size:.9rem;color:var(--muted)}
+.field{display:flex;align-items:center;gap:6px}
+.field input[type=number],.field select{width:100%;font:500 1rem/1 var(--mono);padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);font-variant-numeric:tabular-nums}
+.field .u{font:500 .8rem/1 var(--mono);color:var(--muted)}
+.okchk{display:flex;align-items:center;gap:8px;font-size:.85rem;margin-top:8px;cursor:pointer}
+.okchk input{width:18px;height:18px;accent-color:var(--neon-strong)}
+.prem-foot{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+
+/* 3D */
+.viewer{position:relative;height:min(68vh,560px);min-height:360px;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;touch-action:none}
+.viewer canvas{display:block;width:100%;height:100%}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.tip{position:absolute;pointer-events:none;background:var(--inverse-bg);color:var(--inverse-fg);font:500 .8rem/1.4 var(--mono);padding:8px 10px;border-radius:8px;transform:translate(-50%,calc(-100% - 12px));white-space:nowrap;box-shadow:var(--shadow-1)}
+.tip small{color:var(--inverse-muted);display:block}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px;font:500 .78rem/1.4 var(--mono);color:var(--muted)}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:6px;border:1px solid #0000001f}
+.nogl{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--muted)}
+
+/* tabelas */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 .72rem/1.3 var(--mono);color:var(--muted);letter-spacing:.03em;background:var(--bg);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.cod{font:700 .95rem/1.2 var(--mono);white-space:nowrap}
+tfoot td{font-weight:600;background:var(--bg)}
+
+/* plano de corte */
+.sheet-svg{width:100%;height:auto;display:block}
+.sheet-svg .bd{fill:var(--bg);stroke:var(--muted);stroke-width:.4}
+.sheet-svg .pc{stroke:var(--fg);stroke-width:.35}
+.sheet-svg .lb{font:700 7px var(--mono);fill:#0a0a0a}
+.sheet-svg .lb2{font:500 4.6px var(--mono);fill:#0a0a0a}
+.sheet-svg .lbs{font:700 3.8px var(--mono);fill:#0a0a0a}
+.sheet-svg .dimt{font:500 5px var(--mono);fill:var(--muted)}
+.sheet-svg .waste{fill:url(#hatch)}
+.sheet-svg .hatchl{stroke:var(--line);stroke-width:.6}
+
+/* listas */
+.buy{list-style:none;padding:0;margin:0;display:grid;gap:0}
+.buy li{display:grid;grid-template-columns:5.5rem 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);max-width:none}
+.buy li:last-child{border-bottom:0}
+.buy .q{font:700 .95rem/1.4 var(--mono);font-variant-numeric:tabular-nums}
+.buy small{color:var(--muted);display:block;font-size:.85rem}
+.term{border-bottom:1px dashed var(--muted)}
+.term-x{color:var(--muted);font-size:.92em}
+
+/* passos */
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:16px;counter-reset:st}
+.step{display:grid;grid-template-columns:minmax(0,18rem) minmax(0,1fr);gap:20px;max-width:none}
+@media (max-width:760px){.step{grid-template-columns:1fr}}
+.step-img{background:var(--surface);border:1px solid var(--line);border-radius:10px;aspect-ratio:4/3;max-width:100%;display:grid;place-items:center;overflow:hidden;color:var(--muted);font:500 .75rem/1.4 var(--mono)}
+.step-img img{width:100%;height:100%;object-fit:contain}
+.step-n{font:700 .75rem/1 var(--mono);color:var(--muted);margin-bottom:6px}
+.step ul{padding-left:1.1rem;margin:8px 0}
+.step li{margin:4px 0}
+.err{margin-top:10px;background:var(--bad-soft);border-radius:10px;padding:10px 12px;font-size:.9rem}
+.err b{font:700 .72rem/1.4 var(--mono);color:var(--bad);display:block;letter-spacing:.03em}
+.pieces-chips{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 8px}
+
+.checklist{list-style:none;padding:0;margin:0;display:grid;gap:2px}
+.checklist label{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.checklist input{width:20px;height:20px;margin-top:2px;accent-color:var(--neon-strong);flex:none}
+.conflict{background:var(--bad-soft);border-radius:14px;padding:18px 20px;margin:16px 0}
+.conflict h3{color:var(--bad)}
+.note{font-size:.88rem;color:var(--muted)}
+.foot{margin-top:72px;padding-top:16px;border-top:1px solid var(--line);font:500 .75rem/1.6 var(--mono);color:var(--muted)}
+
+@media (prefers-reduced-motion: reduce){.cursor{animation:none}*{transition-duration:0ms!important}}
+@media print{
+  body{background:#fff;color:#000}
+  .top,#modelo,.tools,.no-print,.okchk{display:none!important}
+  section{padding-block:18px 0;break-inside:auto}
+  .card,.step,.tbl-wrap,.warnbox{break-inside:avoid;box-shadow:none}
+  .step-img,.shot{border-color:#ccc}
+  a{text-decoration:none}
+}
+</style>
+
+<header class="top">
+  <div class="top-in">
+    <a class="mark" href="#resumo" aria-label="vini_lab"><span class="chip">v_</span>vini_lab<span class="cursor" aria-hidden="true"></span></a>
+    <nav class="nav" aria-label="Seções">
+      <a href="#premissas">premissas</a><a href="#modelo">3d</a><a href="#corte">corte</a><a href="#plano">chapa</a><a href="#compras">compras</a><a href="#montagem">montagem</a><a href="#acabamento">acabamento</a><a href="#instalacao">instalação</a><a href="#checklist">checklist</a>
+    </nav>
+    <button class="btn" id="btnPrint" type="button" hidden>Imprimir</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- 1. RESUMO -->
+<section id="resumo" style="padding-top:16px">
+  <p class="eyebrow">projeto · gabinete de madeira para lavatório de sobrepor 60 cm · v1.0</p>
+  <h1>Gabinete para a <span class="hl">pia de 60 cm</span></h1>
+  <p class="lead">Um móvel de piso, com 2 portas e rodapé recuado, que segura a pia pela borda e deixa a cuba e o sifão livres por baixo. Todas as medidas desta página saem de uma única tabela de dados, então o desenho, a lista de corte e a chapa sempre batem.</p>
+  <div class="hero">
+    <div class="shot" id="heroShot"><span class="muted mono" style="font-size:.8rem">gerando vista 3D…</span></div>
+    <div style="min-width:0">
+      <div class="dims" id="heroDims"></div>
+      <dl class="facts" id="heroFacts"></dl>
+      <div id="seal"></div>
+    </div>
+  </div>
+  <div id="conflict"></div>
+</section>
+
+<!-- 2. PREMISSAS -->
+<section id="premissas">
+  <p class="eyebrow">2 · antes de cortar</p>
+  <h2>Premissas a confirmar</h2>
+  <p class="lead">Medi a largura da pia com trena. Os outros valores são padrões de mercado que eu usei para fechar o projeto. Meça cada um, troque o número se for diferente e marque "conferi". A página inteira recalcula na hora.</p>
+  <div class="warnbox" id="premBox"></div>
+</section>
+
+<!-- 3. MODELO 3D -->
+<section id="modelo">
+  <p class="eyebrow">3 · modelo interativo</p>
+  <h2>Modelo 3D</h2>
+  <p class="lead">Arraste para girar, use a roda do mouse ou dois dedos para aproximar. Passe o mouse (ou toque) numa peça para ver o nome e a medida.</p>
+  <div class="tools">
+    <button class="btn" id="btnExplode" type="button" aria-pressed="false">Vista explodida</button>
+    <button class="btn" id="btnSink" type="button" aria-pressed="true">Pia: mostrando</button>
+    <button class="btn" id="btnDoors" type="button" aria-pressed="true">Portas: mostrando</button>
+    <button class="btn" id="btnReset" type="button">Voltar à vista inicial</button>
+  </div>
+  <div class="viewer" id="viewer"><div class="tip" id="tip" hidden></div></div>
+  <div class="legend" id="legend"></div>
+</section>
+
+<!-- 4. LISTA DE CORTE -->
+<section id="corte">
+  <p class="eyebrow">4 · o que cortar</p>
+  <h2>Lista de corte</h2>
+  <p class="lead">Comprimento é sempre a medida no sentido do <span class="term">veio</span> <span class="term-x">(as listras da madeira, a direção das fibras)</span>. Espessura em milímetros.</p>
+  <div class="tbl-wrap"><table id="cutTable"></table></div>
+  <p class="note" style="margin-top:10px"><span class="term">Fita de borda</span> <span class="term-x">(tira fina de madeira com cola, que cobre o miolo da chapa na borda e impede a água de entrar)</span>. Bordas sem fita levam verniz.</p>
+</section>
+
+<!-- 5. PLANO DE CORTE -->
+<section id="plano">
+  <p class="eyebrow">5 · como as peças cabem</p>
+  <h2>Plano de corte da chapa</h2>
+  <p class="lead" id="planLead"></p>
+  <div id="sheets" style="display:grid;gap:16px"></div>
+</section>
+
+<!-- 6. COMPRAS -->
+<section id="compras">
+  <p class="eyebrow">6 · loja de madeira e ferragens</p>
+  <h2>Lista de compras</h2>
+  <p class="lead">Quantidades exatas para este projeto. As contas de parafuso, fita e verniz saem das peças da lista de corte.</p>
+  <div class="grid2" id="buyLists"></div>
+</section>
+
+<!-- 7. FERRAMENTAS -->
+<section id="ferramentas">
+  <p class="eyebrow">7 · bancada</p>
+  <h2>Ferramentas</h2>
+  <div class="grid2">
+    <div class="card"><h3>Para cortar e medir</h3><ul class="buy" id="toolsA"></ul></div>
+    <div class="card"><h3>Para furar, montar e acabar</h3><ul class="buy" id="toolsB"></ul></div>
+  </div>
+</section>
+
+<!-- 8. MONTAGEM -->
+<section id="montagem">
+  <p class="eyebrow">8 · do corte ao móvel em pé</p>
+  <h2>Montagem passo a passo</h2>
+  <p class="lead">Cada ilustração mostra só as peças daquele passo em cor; o que já foi montado aparece em cinza claro.</p>
+  <ol class="steps" id="steps"></ol>
+</section>
+
+<!-- 9. ACABAMENTO -->
+<section id="acabamento">
+  <p class="eyebrow">9 · água não entra</p>
+  <h2>Acabamento e proteção contra água</h2>
+  <div class="grid2" id="finish"></div>
+</section>
+
+<!-- 10. INSTALAÇÃO -->
+<section id="instalacao">
+  <p class="eyebrow">10 · pia, torneira e sifão</p>
+  <h2>Instalação da pia e hidráulica</h2>
+  <div class="grid2" id="install"></div>
+</section>
+
+<!-- 11. CHECKLIST -->
+<section id="checklist">
+  <p class="eyebrow">11 · antes de abrir a torneira</p>
+  <h2>Checklist final</h2>
+  <ul class="checklist" id="finalCheck"></ul>
+</section>
+
+<p class="foot">vini_lab · gabinete para pia 60 cm · medidas em cm com uma casa decimal, espessuras em mm · valores marcados como PREMISSA ainda não foram medidos.</p>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+"use strict";
+/* ============================================================
+   FONTE ÚNICA DE DADOS
+   Premissas -> compute() -> projeto (peças + posições) -> tudo.
+   ============================================================ */
+const PREM = [
+  {k:'pW', label:'Largura total da pia', un:'cm', def:60, st:'medido', min:40, max:120, step:0.5,
+   how:'Medi com trena: de uma borda lateral à outra, na parte mais larga, incluindo o rebordo.'},
+  {k:'pD', label:'Profundidade total da pia', un:'cm', def:45, st:'confirmar', min:30, max:70, step:0.5,
+   how:'A leitura ficou entre 44,5 e 45 cm. Encoste a ponta da trena na face de trás do rebordo (a parte que encosta na parede) e leia na beirada da frente.'},
+  {k:'cubaP', label:'Profundidade da cuba (do tampo até o ponto mais baixo por fora)', un:'cm', def:18, st:'premissa', min:8, max:35, step:0.5,
+   how:'Apoie a pia de lado sobre um pano. Encoste uma régua no tampo e meça até o ponto mais baixo do fundo da cuba, por fora.'},
+  {k:'bordaE', label:'Espessura da borda da pia', un:'cm', def:2, st:'premissa', min:0.5, max:6, step:0.1,
+   how:'Na beirada da frente, meça de cima até a face de baixo da borda (a parte que vai apoiar no móvel).'},
+  {k:'hFinal', label:'Altura final da bancada (chão até o topo da pia)', un:'cm', def:85, st:'premissa', min:70, max:100, step:0.5,
+   how:'85 cm é confortável para a maioria dos adultos. Se quiser outra, meça do chão até a altura do seu umbigo menos 10 cm.'},
+  {k:'cubaL', label:'Largura da cuba por baixo (esquerda para direita)', un:'cm', def:46, st:'premissa', min:20, max:110, step:0.5,
+   how:'Com a pia de cabeça para baixo, meça a parte mais larga da cuba por fora, de um lado ao outro.'},
+  {k:'cubaC', label:'Comprimento da cuba por baixo (frente para trás)', un:'cm', def:32, st:'premissa', min:15, max:60, step:0.5,
+   how:'Ainda com a pia virada, meça a cuba por fora, da frente para trás.'},
+  {k:'cubaRecuo', label:'Distância da beirada da frente até o começo da cuba', un:'cm', def:6, st:'premissa', min:1, max:20, step:0.5,
+   how:'Pia virada: meça da beirada da frente da pia até onde a cuba começa a descer.'},
+  {k:'torX', label:'Furo da torneira: distância da borda esquerda', un:'cm', def:8, st:'premissa', min:3, max:30, step:0.5,
+   how:'Meça da borda esquerda da pia até o centro do furo da torneira.'},
+  {k:'torY', label:'Furo da torneira: distância da borda de trás', un:'cm', def:7, st:'premissa', min:3, max:30, step:0.5,
+   how:'Meça da face de trás do rebordo até o centro do furo.'},
+  {k:'esgH', label:'Altura do esgoto e da água na parede (centro)', un:'cm', def:55, st:'premissa', min:20, max:80, step:0.5,
+   how:'Padrão: entre 50 e 60 cm do chão, centralizados. Meça do piso acabado até o centro do cano de esgoto.'},
+  {k:'eCorpo', label:'Espessura da chapa do corpo', un:'mm', def:18, st:'premissa', min:12, max:25, step:1,
+   how:'Compensado naval 18 mm. Peça na loja e confirme na etiqueta da chapa.'},
+  {k:'ePorta', label:'Espessura da chapa das portas', un:'mm', def:15, st:'premissa', min:12, max:25, step:1,
+   how:'15 mm. Se usar 18 mm nas portas também, tudo sai de uma chapa só.'},
+  {k:'mat', label:'Material', un:'', def:'compensado', st:'premissa', opts:[['compensado','Compensado naval (chapa 220 × 160 cm)'],['mdf','MDF RU, resistente à umidade (chapa 275 × 184 cm)']],
+   how:'Compensado naval aguenta respingo melhor e aceita verniz marítimo. MDF comum não serve perto de água.'},
+];
+const FIXED_PREM = [
+  ['Instalação','Gabinete de piso, encostado na parede do fundo.'],
+  ['Frente','2 portas de abrir, sem gaveta (a cuba e o sifão ocupam o espaço).'],
+];
+const SHEETS = {compensado:{L:220,W:160,nome:'compensado naval'}, mdf:{L:275,W:184,nome:'MDF RU'}};
+const COLORS = {A:'#d9a36a',B:'#a8825f',C:'#e8c35a',D:'#86b07a',E:'#5f9c95',F:'#ead2ac',G:'#b4869a',H:'#8f7fb0',I:'#c99790',hinge:'#9aa0a6',handle:'#3a3a40'};
+
+const r1 = x => Math.round(x*10)/10;
+const f1 = x => (Math.round(x*10)/10).toFixed(1).replace('.',',');
+const esc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- estado (premissas do usuário) ---------- */
+const STORE='gabinete-pia-60-v1';
+let state = {v:{}, ok:{}};
+PREM.forEach(p=>state.v[p.k]=p.def);
+try{ const s=JSON.parse(localStorage.getItem(STORE)||'null'); if(s&&s.v){Object.assign(state.v,s.v);Object.assign(state.ok,s.ok||{});} }catch(e){}
+function save(){ try{localStorage.setItem(STORE,JSON.stringify(state));}catch(e){} }
+
+function stOf(k){ const m=PREM.find(p=>p.k===k); if(!m) return 'medido'; if(state.ok[k]) return 'ok'; return m.st; }
+function badge(keys){
+  const sts = keys.map(stOf);
+  if (sts.includes('premissa')) return '<span class="tag prem">PREMISSA</span>';
+  if (sts.includes('confirmar')) return '<span class="tag conf">CONFIRMAR</span>';
+  return '';
+}
+
+/* ---------- cálculo do projeto ---------- */
+function compute(v){
+  const T=v.eCorpo/10, TP=v.ePorta/10;
+  const SOBRA=1, Hrod=7, recuo=5, folgaMeio=0.4, fTop=0.3, fBot=0.2, hC=8, hD=10;
+  const W  = r1(v.pW - 2*SOBRA);              // pia sobra 1 cm de cada lado
+  const D  = r1(v.pD - SOBRA - TP);           // pia sobra 1 cm na frente das portas; atrás encosta na parede
+  const H  = r1(v.hFinal - Hrod - v.bordaE);  // altura do corpo
+  const Li = r1(W - 2*T);                     // largura interna
+  const dW = Math.floor((W - folgaMeio)/2*10)/10;
+  const gap= r1(W - 2*dW);
+  const dH = r1(H - fTop - fBot);
+  const sheet = SHEETS[v.mat] || SHEETS.compensado;
+
+  const pieces = [
+    {cod:'A', nome:'Lateral', qtd:2, c:H, l:D, e:v.eCorpo, veio:'em pé', fita:{c:1,l:0}, fitaTxt:'borda da frente', dep:['hFinal','bordaE','pD','ePorta']},
+    {cod:'B', nome:'Base', qtd:1, c:Li, l:D, e:v.eCorpo, veio:'de lado a lado', fita:{c:1,l:0}, fitaTxt:'borda da frente', dep:['pW','pD','eCorpo','ePorta']},
+    {cod:'C', nome:'Travessa da frente', qtd:1, c:Li, l:hC, e:v.eCorpo, veio:'de lado a lado', fita:{c:0,l:0}, fitaTxt:'nenhuma (fica atrás da porta)', dep:['pW','eCorpo']},
+    {cod:'D', nome:'Travessa traseira de cima', qtd:1, c:Li, l:hD, e:v.eCorpo, veio:'de lado a lado', fita:{c:0,l:0}, fitaTxt:'nenhuma', dep:['pW','eCorpo']},
+    {cod:'E', nome:'Travessa traseira de baixo', qtd:1, c:Li, l:hD, e:v.eCorpo, veio:'de lado a lado', fita:{c:0,l:0}, fitaTxt:'nenhuma', dep:['pW','eCorpo']},
+    {cod:'F', nome:'Porta', qtd:2, c:dH, l:dW, e:v.ePorta, veio:'em pé', fita:{c:2,l:2}, fitaTxt:'as 4 bordas', dep:['hFinal','bordaE','pW']},
+    {cod:'G', nome:'Rodapé da frente', qtd:1, c:Li, l:Hrod, e:v.eCorpo, veio:'de lado a lado', fita:{c:0,l:0}, fitaTxt:'nenhuma', dep:['pW','eCorpo']},
+    {cod:'H', nome:'Rodapé de trás', qtd:1, c:Li, l:Hrod, e:v.eCorpo, veio:'de lado a lado', fita:{c:0,l:0}, fitaTxt:'nenhuma', dep:['pW','eCorpo']},
+    {cod:'I', nome:'Rodapé lateral', qtd:2, c:r1(D-recuo), l:Hrod, e:v.eCorpo, veio:'frente para trás', fita:{c:0,l:1}, fitaTxt:'ponta da frente', dep:['pD','ePorta']},
+  ];
+  const byCod = Object.fromEntries(pieces.map(p=>[p.cod,p]));
+
+  // posições no espaço: x = esquerda→direita, y = chão→cima, z = parede→frente (cm)
+  const inst = [];
+  const add = (cod,min,ax,ex)=>inst.push({cod,min,ax,ex});
+  add('A',[0,Hrod,0],{c:'y',l:'z',e:'x'},[-16,0,0]);
+  add('A',[W-T,Hrod,0],{c:'y',l:'z',e:'x'},[16,0,0]);
+  add('B',[T,Hrod,0],{c:'x',l:'z',e:'y'},[0,-8,0]);
+  add('C',[T,Hrod+H-hC,D-T],{c:'x',l:'y',e:'z'},[0,12,14]);
+  add('D',[T,Hrod+H-hD,0],{c:'x',l:'y',e:'z'},[0,12,-14]);
+  add('E',[T,Hrod+T,0],{c:'x',l:'y',e:'z'},[0,4,-16]);
+  add('F',[0,Hrod+fBot,D],{c:'y',l:'x',e:'z'},[-10,0,30]);
+  add('F',[W-dW,Hrod+fBot,D],{c:'y',l:'x',e:'z'},[10,0,30]);
+  add('G',[T,0,D-recuo-T],{c:'x',l:'y',e:'z'},[0,-20,12]);
+  add('H',[T,0,0],{c:'x',l:'y',e:'z'},[0,-20,-12]);
+  add('I',[0,0,0],{c:'z',l:'y',e:'x'},[-12,-20,0]);
+  add('I',[W-T,0,0],{c:'z',l:'y',e:'x'},[12,-20,0]);
+  const AX={x:0,y:1,z:2};
+  inst.forEach(i=>{ const p=byCod[i.cod]; const s=[0,0,0]; s[AX[i.ax.c]]=p.c; s[AX[i.ax.l]]=p.l; s[AX[i.ax.e]]=p.e/10; i.size=s; i.max=i.min.map((m,k)=>m+s[k]); });
+
+  // pia (em coordenadas do gabinete)
+  const topY = Hrod + H;
+  const sink = {x0:-SOBRA, x1:W+SOBRA, z0:0, z1:v.pD, y:topY, t:v.bordaE,
+    cx:W/2, cz:v.pD - v.cubaRecuo - v.cubaC/2, cubaL:v.cubaL, cubaC:v.cubaC, cubaP:v.cubaP,
+    torX:v.torX - SOBRA, torZ:v.torY};
+
+  const p = {v,T,TP,SOBRA,Hrod,recuo,W,D,H,Li,dW,gap,dH,hC,hD,fTop,fBot,pieces,byCod,inst,sink,sheet,topY};
+  p.packs = packAll(p);
+  p.checks = runChecks(p);
+  p.buy = shopping(p);
+  return p;
+}
+
+/* ---------- plano de corte: prateleiras (guilhotina simples) ---------- */
+function packAll(p){
+  const groups={};
+  p.pieces.forEach(pc=>{ for(let n=0;n<pc.qtd;n++){ (groups[pc.e]=groups[pc.e]||[]).push({cod:pc.cod,c:pc.c,l:pc.l,nome:pc.nome}); } });
+  const res=[];
+  Object.keys(groups).sort((a,b)=>b-a).forEach(e=>{
+    res.push({e:+e, ...pack(groups[e], p.sheet.L, p.sheet.W, p.v.mat==='mdf')});
+  });
+  return res;
+}
+function pack(items, SL, SW, canRotate){
+  const ref=1, kerf=0.4, UL=SL-2*ref, UW=SW-2*ref;
+  const list=items.slice().sort((a,b)=>b.l-a.l||b.c-a.c);
+  const sheets=[]; const tooBig=[];
+  const newSheet=()=>{ const s={shelves:[],used:0,placed:[]}; sheets.push(s); return s; };
+  for(const it of list){
+    const ors=[[it.c,it.l,false]]; if(canRotate) ors.push([it.l,it.c,true]);
+    let done=false;
+    for(const s of sheets.length?sheets:[newSheet()]){
+      for(const [a,b,rot] of ors){
+        for(const sh of s.shelves){ if(b<=sh.h+1e-9 && sh.x+a<=UL+1e-9){ s.placed.push({...it,x:ref+sh.x,y:ref+sh.y,w:a,h:b,rot}); sh.x+=a+kerf; done=true; break; } }
+        if(done) break;
+        const y=s.used; if(a<=UL && y+b<=UW){ s.shelves.push({y,h:b,x:a+kerf}); s.used=y+b+kerf; s.placed.push({...it,x:ref,y:ref+y,w:a,h:b,rot}); done=true; break; }
+      }
+      if(done) break;
+    }
+    if(!done){
+      if(it.c>UL&&it.l>UL || Math.min(it.c,it.l)>UW || (!canRotate&&(it.c>UL||it.l>UW))){ tooBig.push(it); continue; }
+      const s=newSheet(); const [a,b,rot]=ors[0];
+      s.shelves.push({y:0,h:b,x:a+kerf}); s.used=b+kerf; s.placed.push({...it,x:ref,y:ref,w:a,h:b,rot});
+    }
+  }
+  sheets.forEach(s=>{ const area=s.placed.reduce((t,q)=>t+q.w*q.h,0); s.sobra=1-area/(SL*SW); s.sobraFaixa=SW-ref-s.used; });
+  return {sheets, tooBig, SL, SW};
+}
+
+/* ---------- verificações ---------- */
+function runChecks(p){
+  const {v,T,TP,W,D,H,Li,dW,gap,Hrod,inst,byCod,sink,hD} = p;
+  const C=[]; const eq=(a,b)=>Math.abs(a-b)<0.051;
+  const add=(ok,txt,det,grupo,prop)=>C.push({ok,txt,det,grupo,prop});
+
+  add(eq(2*T+byCod.B.c,W), 'Largura: 2 laterais + base = largura externa', `${f1(T)} + ${f1(byCod.B.c)} + ${f1(T)} = ${f1(2*T+byCod.B.c)} cm (declarado ${f1(W)})`,'soma');
+  add(eq(2*dW+gap,W) && gap>=0.2 && gap<=0.6, 'Portas: 2 portas + folga do meio = largura externa', `${f1(dW)} + ${f1(gap)} + ${f1(dW)} = ${f1(2*dW+gap)} cm`,'soma');
+  add(eq(byCod.A.l,D)&&eq(byCod.B.l,D)&&eq(D+TP+p.SOBRA,v.pD), 'Profundidade: corpo + porta + 1 cm de sobra = pia', `${f1(D)} + ${f1(TP)} + 1,0 = ${f1(D+TP+1)} cm (pia ${f1(v.pD)})`,'soma');
+  add(eq(byCod.C.c,Li)&&eq(byCod.D.c,Li)&&eq(byCod.E.c,Li)&&eq(byCod.G.c,Li)&&eq(byCod.H.c,Li), 'Travessas e rodapés cabem entre as laterais', `todas com ${f1(Li)} cm = ${f1(W)} − 2 × ${f1(T)}`,'soma');
+  add(eq(byCod.I.c+p.recuo,D), 'Rodapé lateral + recuo = profundidade do corpo', `${f1(byCod.I.c)} + ${f1(p.recuo)} = ${f1(byCod.I.c+p.recuo)} cm`,'soma');
+  const hSum=Hrod+H+v.bordaE;
+  add(eq(hSum,v.hFinal), 'Altura: rodapé + corpo + borda da pia = altura final', `${f1(Hrod)} + ${f1(H)} + ${f1(v.bordaE)} = ${f1(hSum)} cm (declarado ${f1(v.hFinal)})`,'soma');
+
+  // caixa envolvente do modelo 3D
+  const bb={min:[1e9,1e9,1e9],max:[-1e9,-1e9,-1e9]};
+  inst.forEach(i=>{for(let k=0;k<3;k++){bb.min[k]=Math.min(bb.min[k],i.min[k]);bb.max[k]=Math.max(bb.max[k],i.max[k]);}});
+  const bw=bb.max[0]-bb.min[0], bh=bb.max[1]-bb.min[1], bd=bb.max[2]-bb.min[2];
+  add(eq(bw,W)&&eq(bh,Hrod+H)&&eq(bd,D+TP), 'O modelo 3D tem as medidas externas declaradas', `3D: ${f1(bw)} × ${f1(bd)} × ${f1(bh)} cm · declarado: ${f1(W)} × ${f1(D+TP)} × ${f1(Hrod+H)} cm`,'soma');
+
+  let overl=[];
+  for(let a=0;a<inst.length;a++)for(let b=a+1;b<inst.length;b++){
+    let vol=1; for(let k=0;k<3;k++){ vol*=Math.max(0,Math.min(inst[a].max[k],inst[b].max[k])-Math.max(inst[a].min[k],inst[b].min[k])); }
+    if(vol>0.01) overl.push(inst[a].cod+'×'+inst[b].cod);
+  }
+  add(overl.length===0, 'Nenhuma peça ocupa o lugar de outra', overl.length?('conflito: '+overl.join(', ')):`${inst.length} peças conferidas duas a duas`,'soma');
+  const cnt={}; inst.forEach(i=>cnt[i.cod]=(cnt[i.cod]||0)+1);
+  const miss=p.pieces.filter(pc=>cnt[pc.cod]!==pc.qtd).map(pc=>pc.cod);
+  add(miss.length===0, 'Toda peça da lista de corte aparece no 3D na quantidade certa', miss.length?('diverge: '+miss.join(', ')):`${p.pieces.reduce((t,q)=>t+q.qtd,0)} peças`,'soma');
+
+  // viabilidade
+  const livre=H-T;
+  add(livre>=v.cubaP+15, 'Altura livre interna ≥ profundidade da cuba + 15 cm (sifão)', `${f1(livre)} cm livres ≥ ${f1(v.cubaP)} + 15,0 = ${f1(v.cubaP+15)} cm`,'viab',
+      `Aumente a altura final ou use uma cuba mais rasa; com essa cuba a altura final precisa ser pelo menos ${f1(v.cubaP+15+T+Hrod+v.bordaE)} cm.`);
+  const xL=sink.cx-v.cubaL/2, xR=sink.cx+v.cubaL/2;
+  add(xL>=T+1 && xR<=W-T-1, 'A cuba cabe na largura interna (1 cm de folga de cada lado)', `cuba ${f1(v.cubaL)} cm · vão interno ${f1(Li)} cm · folga ${f1((Li-v.cubaL)/2)} cm por lado`,'viab',
+      `A cuba é mais larga que o vão. Opção: laterais de 15 mm ou deixar a pia sobrar menos (0,5 cm); o vão precisa ter ${f1(v.cubaL+2)} cm.`);
+  const zF=sink.cz+v.cubaC/2, zB=sink.cz-v.cubaC/2;
+  add(zF<=D-T-1 && zB>=T+1, 'A cuba passa livre entre a travessa da frente e a de trás', `cuba de ${f1(zB)} a ${f1(zF)} cm da parede · vão de ${f1(T)} a ${f1(D-T)} cm`,'viab',
+      `A cuba bate numa travessa. Opção: confira a distância da beirada até a cuba e o comprimento da cuba; se estiverem certos, a travessa da frente pode descer 3 cm e ficar abaixo da cuba.`);
+  const tx=sink.torX, tz=sink.torZ;
+  add(tx>=T+2 && tz>=T+2, 'O flexível da torneira desce sem bater na lateral nem na travessa', `furo a ${f1(tx)} cm da lateral e ${f1(tz)} cm da parede (mínimo ${f1(T+2)} cm)`,'viab',
+      'O furo da torneira fica em cima da madeira. Opção: faça um recorte de 4 cm de diâmetro na travessa de cima, alinhado com o furo.');
+  const eTop=Hrod+T+hD, dBot=Hrod+H-hD;
+  add(v.esgH-5>=eTop && v.esgH+5<=dBot, 'Esgoto e água ficam no vão aberto do fundo', `canos a ${f1(v.esgH)} cm do chão · vão aberto de ${f1(eTop)} a ${f1(dBot)} cm`,'viab',
+      'Os canos ficam atrás de uma travessa. Opção: abra um recorte de 10 × 10 cm na travessa, centrado no cano, antes de montar.');
+  const big=p.packs.flatMap(g=>g.tooBig);
+  add(big.length===0, `Todas as peças cabem na chapa padrão (${p.sheet.L} × ${p.sheet.W} cm)`, big.length?('não cabem: '+big.map(b=>b.cod).join(', ')):p.packs.map(g=>`${g.e} mm: ${g.sheets.length} chapa`).join(' · '),'viab',
+      'Uma peça é maior que a chapa. Troque o material para MDF RU (chapa maior) ou divida a peça.');
+  return C;
+}
+
+/* ---------- compras ---------- */
+function shopping(p){
+  const {v,pieces}=p;
+  // parafusos 4,0 × 40: A↔B 4 por lado; A↔C/D/E 2 por ponta; B↔E 3; cantos do rodapé 2 cada; base↔rodapé 3 em G + 3 em H
+  const joints=[['laterais na base',2*4],['laterais nas 3 travessas',3*2*2],['base na travessa de baixo',3],['cantos do rodapé',4*2],['base no rodapé',6]];
+  const screws=joints.reduce((t,j)=>t+j[1],0);
+  const cav=2*2 + 3*2;
+  const fitaCm=pieces.reduce((t,pc)=>t+pc.qtd*(pc.fita.c*pc.c+pc.fita.l*pc.l),0);
+  const fitaM=Math.ceil(fitaCm*1.1/100);
+  const areaM2=pieces.reduce((t,pc)=>{const e=pc.e/10;return t+pc.qtd*(2*pc.c*pc.l+2*pc.c*e+2*pc.l*e);},0)/10000;
+  const demaos=3, rend=10;
+  const litros=areaM2*demaos/rend;
+  const latas=Math.ceil(litros/0.9);
+  const sheetCount=p.packs.map(g=>({e:g.e,n:g.sheets.length}));
+  return {joints,screws,cav,fitaCm,fitaM,areaM2,litros,latas,demaos,sheetCount,hinges:4,hingeScrews:16,handles:2};
+}
+
+/* ============================================================
+   RENDER DA PÁGINA
+   ============================================================ */
+let P=null;
+const $=id=>document.getElementById(id);
+
+function renderAll(){
+  P=compute(state.v);
+  renderHero(); renderPrem(); renderCut(); renderPlan(); renderBuy(); renderTools(); renderSteps(); renderFinish(); renderInstall(); renderFinal(); renderLegend();
+  if(window.THREE){ rebuild3D(); scheduleShots(); }
+}
+
+function renderHero(){
+  const p=P, v=p.v;
+  $('heroDims').innerHTML=`
+    <div class="dim"><b>${f1(p.W)}</b><span>largura (cm) ${badge(['pW'])}</span></div>
+    <div class="dim"><b>${f1(p.D+p.TP)}</b><span>profundidade com portas (cm) ${badge(['pD','ePorta'])}</span></div>
+    <div class="dim"><b>${f1(p.Hrod+p.H)}</b><span>altura sem a pia (cm) ${badge(['hFinal','bordaE'])}</span></div>`;
+  const nShe=p.buy.sheetCount.map(s=>`${s.n} chapa de ${s.e} mm`).join(' + ');
+  $('heroFacts').innerHTML=`
+    <dt>com a pia</dt><dd class="num">${f1(v.pW)} × ${f1(v.pD)} × ${f1(v.hFinal)} cm ${badge(['pD','hFinal'])}</dd>
+    <dt>comprar</dt><dd>${nShe} de ${p.sheet.nome}, ${p.buy.fitaM} m de fita de borda, ${p.buy.latas} lata${p.buy.latas>1?'s':''} de verniz marítimo 0,9 L, 4 dobradiças de caneco, 2 puxadores, ${p.buy.screws} parafusos 4,0 × 40 mm. <a href="#compras">lista completa →</a></dd>
+    <dt>tempo</dt><dd>cerca de 10 h de trabalho em 2 fins de semana, mais 3 dias de secagem do verniz</dd>
+    <dt>dificuldade</dt><dd>2 de 5 · iniciante com paciência. O passo mais delicado é furar o caneco da dobradiça.</dd>`;
+  const fails=p.checks.filter(c=>!c.ok);
+  const list=`<ul class="checks">${p.checks.map(c=>`<li class="${c.ok?'pass':'fail'}"><span class="s">${c.ok?'ok':'x'}</span><span>${esc(c.txt)}<small class="num">${esc(c.det)}</small></span></li>`).join('')}</ul>`;
+  $('seal').innerHTML = fails.length===0
+    ? `<div class="seal ok"><span class="ico">medidas conferidas</span><div><strong>${p.checks.length} de ${p.checks.length} verificações passaram.</strong> O código soma as peças e compara com as medidas externas, a altura e o espaço da cuba.<details class="more"><summary>ver as contas</summary>${list}</details></div></div>`
+    : `<div class="seal bad"><span class="ico">erro nas medidas</span><div><strong>${fails.length} verificação(ões) falharam.</strong> Não corte nada antes de resolver.${list}</div></div>`;
+  const viabF=fails.filter(c=>c.grupo==='viab');
+  $('conflict').innerHTML = viabF.length ? `<div class="conflict"><h3>O projeto não fecha com essas medidas</h3>${viabF.map(c=>`<p><strong>${esc(c.txt)}</strong>: ${esc(c.det)}.<br>${esc(c.prop)}</p>`).join('')}<p class="note">As seções abaixo continuam visíveis para você comparar, mas não servem para cortar enquanto este aviso aparecer.</p></div>` : '';
+}
+
+function renderPrem(){
+  const pend=PREM.filter(m=>m.st!=='medido' && !state.ok[m.k]).length;
+  const rows=PREM.map(m=>{
+    const st=stOf(m.k);
+    const tag = st==='ok'?'<span class="tag ok">CONFERIDO</span>': st==='medido'?'<span class="tag med">MEDIDO</span>': st==='confirmar'?'<span class="tag conf">CONFIRMAR</span>':'<span class="tag prem">PREMISSA</span>';
+    const input = m.opts
+      ? `<select id="in-${m.k}" data-k="${m.k}">${m.opts.map(o=>`<option value="${o[0]}" ${state.v[m.k]===o[0]?'selected':''}>${esc(o[1])}</option>`).join('')}</select>`
+      : `<input type="number" id="in-${m.k}" data-k="${m.k}" value="${state.v[m.k]}" min="${m.min}" max="${m.max}" step="${m.step}" inputmode="decimal"><span class="u">${m.un}</span>`;
+    const chk = m.st==='medido' ? '' : `<label class="okchk"><input type="checkbox" id="ok-${m.k}" data-ok="${m.k}" ${state.ok[m.k]?'checked':''}> conferi com a trena</label>`;
+    return `<div class="prem-row"><div><label class="lbl" for="in-${m.k}">${esc(m.label)}</label> ${tag}<div class="note">padrão: ${m.opts?m.opts[0][1]:String(m.def).replace('.',',')+' '+m.un}</div></div><div><div class="field">${input}</div>${chk}</div><div class="how">${esc(m.how)}</div></div>`;
+  }).join('');
+  const fixed=FIXED_PREM.map(f=>`<div class="prem-row"><div><span class="lbl" style="font-weight:600">${f[0]}</span> <span class="tag prem">PREMISSA</span></div><div class="mono" style="font-size:.85rem">fixo</div><div class="how">${f[1]}</div></div>`).join('');
+  const box=$('premBox');
+  const focused=document.activeElement&&box.contains(document.activeElement)?document.activeElement.id:null;
+  box.innerHTML=`<div class="warnbox-h"><strong>${pend?`${pend} premissa${pend>1?'s':''} sem conferir. Não corte nenhuma chapa antes de medir.`:'Todas as premissas foram conferidas.'}</strong><span class="note" style="color:inherit">A pia sobra 1 cm nas laterais e 1 cm na frente das portas. Atrás ela encosta na parede junto com o móvel, por isso lá não há sobra.</span></div>${rows}${fixed}<div class="prem-foot no-print"><button class="btn" type="button" id="btnDefaults">Voltar aos valores padrão</button><span class="note">Os valores ficam salvos só neste navegador.</span></div>`;
+  if(focused&&$(focused)){ const el=$(focused); el.focus(); if(el.type==='number'){ try{const n=el.value.length;el.setSelectionRange(n,n);}catch(e){} } }
+}
+
+function renderCut(){
+  const p=P;
+  const rows=p.pieces.map(pc=>`<tr><td class="cod"><span class="sw" style="background:${COLORS[pc.cod]}"></span>${pc.cod}</td><td>${pc.nome}</td><td class="n">${pc.qtd}</td><td class="n">${f1(pc.c)}</td><td class="n">${f1(pc.l)}</td><td class="n">${pc.e} mm</td><td>${pc.veio}</td><td>${pc.fitaTxt}</td><td>${badge(pc.dep)}</td></tr>`).join('');
+  const tot=p.pieces.reduce((t,q)=>t+q.qtd,0);
+  $('cutTable').innerHTML=`<thead><tr><th>cód.</th><th>peça</th><th>qtd</th><th>comprimento (cm)</th><th>largura (cm)</th><th>espessura</th><th>sentido do veio</th><th>fita de borda</th><th>status</th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td colspan="2">total</td><td class="n">${tot}</td><td colspan="6" class="note" style="font-weight:400">fita: ${f1(p.buy.fitaCm/100)} m de borda + 10% de sobra = ${p.buy.fitaM} m</td></tr></tfoot>`;
+}
+
+function renderPlan(){
+  const p=P;
+  $('planLead').innerHTML=`Chapa de ${p.sheet.nome} de ${p.sheet.L} × ${p.sheet.W} cm. Deixei 1 cm de <span class="term">refilo</span> <span class="term-x">(corte fino na borda da fábrica, que costuma vir torta ou batida)</span> e 0,4 cm entre peças para a espessura do disco da serra. ${p.v.mat==='compensado'?'O veio do compensado corre no comprimento da chapa, por isso as peças não giram.':'MDF não tem veio, então algumas peças podem girar.'} Dica: a maioria das madeireiras corta a chapa por um preço baixo se você levar este desenho.`;
+  $('sheets').innerHTML=p.packs.map(g=>g.sheets.map((s,si)=>{
+    const SL=g.SL, SW=g.SW, pad=10;
+    const rects=s.placed.map(q=>{
+      const small=q.h<12;
+      const t1=`${q.cod}`, t2=`${f1(q.rot?q.h:q.w)} × ${f1(q.rot?q.w:q.h)}`;
+      return `<g><rect class="pc" x="${q.x}" y="${q.y}" width="${q.w}" height="${q.h}" fill="${COLORS[q.cod]}"/>`+
+        (small?`<text class="lbs" x="${q.x+1.5}" y="${q.y+q.h/2+1.4}">${t1} · ${t2}</text>`
+              :`<text class="lb" x="${q.x+q.w/2}" y="${q.y+q.h/2}" text-anchor="middle">${t1}</text><text class="lb2" x="${q.x+q.w/2}" y="${q.y+q.h/2+6.5}" text-anchor="middle">${t2}</text>`)+`</g>`;
+    }).join('');
+    const wasteY=1+s.used, wasteH=SW-1-wasteY;
+    return `<div class="card plain"><h3>Chapa ${g.e} mm${g.sheets.length>1?' · '+(si+1):''}</h3><p class="note" style="margin:0 0 10px">${s.placed.length} peças · sobra ${Math.round(s.sobra*100)}% da chapa${wasteH>5?` · sobra inteira de ${SL} × ${f1(wasteH)} cm embaixo`:''}</p>
+      <svg class="sheet-svg" viewBox="${-pad} ${-pad} ${SL+2*pad} ${SW+2*pad}" role="img" aria-label="Plano de corte da chapa de ${g.e} mm">
+        <defs><pattern id="hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line class="hatchl" x1="0" y1="0" x2="0" y2="4"/></pattern></defs>
+        <rect class="bd" x="0" y="0" width="${SL}" height="${SW}"/>
+        ${wasteH>0.5?`<rect class="waste" x="1" y="${wasteY}" width="${SL-2}" height="${wasteH}"/>`:''}
+        ${rects}
+        <text class="dimt" x="${SL/2}" y="-3.5" text-anchor="middle">${SL} cm</text>
+        <text class="dimt" x="-3" y="${SW/2}" text-anchor="middle" transform="rotate(-90 -3 ${SW/2})">${SW} cm</text>
+      </svg></div>`;
+  }).join('')).join('');
+}
+
+function li(q,t,s){ return `<li><span class="q">${q}</span><span>${t}${s?`<small>${s}</small>`:''}</span></li>`; }
+function renderBuy(){
+  const p=P,b=p.buy, mdf=p.v.mat==='mdf';
+  const chapas=b.sheetCount.map(s=>li(`${s.n} chapa`,`${p.sheet.nome} ${s.e} mm · ${p.sheet.L} × ${p.sheet.W} cm`, s.e===p.v.ePorta&&p.v.ePorta!==p.v.eCorpo?'Só para as 2 portas. Pergunte se a loja vende meia chapa ou corta só as peças F; sobra bastante.':`Corpo e rodapé. ${badge(['eCorpo','mat'])}`)).join('');
+  $('buyLists').innerHTML=`
+  <div class="card"><h3>Madeira e acabamento</h3><ul class="buy">
+    ${chapas}
+    ${li(`${b.fitaM} m`, mdf?'Fita de borda de PVC 22 mm com cola (pré-colada)':'Fita de borda em lâmina de madeira 22 mm, pré-colada', `${f1(b.fitaCm/100)} m de borda nas peças A, B, F e I + 10% de sobra. Pré-colada = a cola já vem nela e derrete com ferro de passar.`)}
+    ${mdf?li('1 lata','Fundo preparador para MDF à base d\'água, 0,9 L','1 demão em todas as faces e bordas antes da tinta.')+li(`${b.latas} lata${b.latas>1?'s':''}`,'Esmalte à base d\'água acetinado, 0,9 L',`${f1(b.areaM2)} m² × 3 demãos ÷ 10 m² por litro = ${f1(b.litros)} L.`)
+         :li(`${b.latas} lata${b.latas>1?'s':''}`,'Verniz marítimo (poliuretano) 0,9 L, acetinado',`${f1(b.areaM2)} m² de faces e bordas × ${b.demaos} demãos ÷ 10 m² por litro = ${f1(b.litros)} L. A primeira demão diluída serve de selador.`)}
+    ${li('1 frasco','Cola de madeira resistente à água (PVA classe D3), 500 g','"D3" no rótulo quer dizer que aguenta umidade.')}
+    ${li('2 folhas','Lixa para madeira grão 120')}
+    ${li('2 folhas','Lixa para madeira grão 220')}
+    ${li('1 folha','Lixa grão 320','Para lixar de leve entre demãos.')}
+    ${li('1 tubo','Silicone neutro incolor antimofo, 280 g','Neutro não ataca o mármore sintético nem solta cheiro de vinagre.')}
+  </ul></div>
+  <div class="card"><h3>Ferragens e fixação</h3><ul class="buy">
+    ${li(`${b.screws} un.`,'Parafuso para madeira cabeça chata Phillips 4,0 × 40 mm, zincado', b.joints.map(j=>`${j[1]} ${j[0]}`).join(' · ')+'. Compre 1 pacote de 50.')}
+    ${li(`${b.cav} un.`,'Cavilha de madeira 8 × 30 mm','Cavilha: pino de madeira que entra em furos nas duas peças para alinhar e reforçar a junção. 4 na base, 6 nas travessas.')}
+    ${li('4 un.','Dobradiça de caneco 35 mm, reta (sobreposição total), com calço',`2 por porta. "Reta" é a que deixa a porta cobrir a lateral inteira. Para porta de ${p.v.ePorta} mm. Prefira niquelada ou inox.`)}
+    ${li(`${b.hingeScrews} un.`,'Parafuso 3,5 × 14 mm cabeça panela','Para as dobradiças, se não vierem junto: 4 por dobradiça.')}
+    ${li('2 un.','Puxador alça, furação 96 mm, com parafusos','1 por porta. Confira se o parafuso que vem junto tem 25 mm para porta de 15 mm.')}
+    ${li('2 un.','Parafuso 5,0 × 50 mm + bucha nº 6','Prendem a travessa de cima (D) na parede.')}
+  </ul></div>
+  <div class="card"><h3>Hidráulica (se ainda não tiver)</h3><ul class="buy">
+    ${li('1 un.','Válvula de escoamento 1" para lavatório','Válvula: o ralo da cuba, com rosca embaixo. Muitas pias já vêm com ela.')}
+    ${li('1 un.','Sifão universal ajustável 1" × 1.1/2"','Sifão: cano curvo que guarda um pouco de água e bloqueia o cheiro do esgoto.')}
+    ${li('1 un.','Flexível de 40 cm, 1/2"','Mangueira trançada que liga a torneira ao registro na parede.')}
+    ${li('1 rolo','Fita veda-rosca 18 mm')}
+  </ul></div>`;
+}
+
+function renderTools(){
+  $('toolsA').innerHTML=[
+    li('serra','Serra circular com disco de 40 dentes (ou serra tico-tico)','Com uma régua de alumínio presa por 2 grampos como guia, o corte sai reto.'),
+    li('grampos','2 grampos sargento de 30 cm ou mais','Seguram a guia e as peças durante a colagem.'),
+    li('medir','Trena de 5 m, esquadro de 30 cm, lápis','Esquadro: régua em L que marca e confere o ângulo de 90°.'),
+    li('nível','Nível de bolha de 40 cm'),
+    li('proteção','Óculos, protetor de ouvido e máscara contra pó'),
+  ].join('');
+  $('toolsB').innerHTML=[
+    li('furadeira','Furadeira/parafusadeira a bateria'),
+    li('brocas','Broca de madeira 3 mm, 8 mm e escareador','3 mm para pré-furo (furo fino que evita rachar a madeira); 8 mm para cavilha; escareador abre o rebaixo para a cabeça do parafuso.'),
+    li('caneco','Broca Forstner 35 mm','Faz o furo redondo e de fundo chato da dobradiça. Custa pouco; ou peça para a loja furar as portas.'),
+    li('parede','Broca de concreto 6 mm','Para as buchas na parede.'),
+    li('cavilha','4 marcadores de cavilha 8 mm','Pinos com ponta: você encaixa num furo, aperta a outra peça e ele marca onde furar.'),
+    li('fita','Ferro de passar roupa velho e estilete'),
+    li('acabar','Pincel de 2" ou rolo de espuma, pistola de silicone, pano'),
+  ].join('');
+}
+
+/* ---------- passos de montagem ---------- */
+function stepsData(p){
+  const v=p.v, T=p.T, b=p.byCod;
+  return [
+    {show:'ABCDEFGHI', news:'ABCDEFGHI', explode:1, t:'Separe, confira e marque as peças',
+     body:`<p>Espalhe as ${p.pieces.reduce((t,q)=>t+q.qtd,0)} peças no chão e meça cada uma contra a <a href="#corte">lista de corte</a>. Escreva a letra a lápis na face que vai ficar para dentro.</p><ul><li>Laterais (A): ${f1(b.A.c)} × ${f1(b.A.l)} cm.</li><li>Portas (F): ${f1(b.F.c)} × ${f1(b.F.l)} cm, mais finas (${v.ePorta} mm).</li></ul>`,
+     err:'Trocar lateral com porta. Elas têm altura parecida; a porta é mais fina e mais estreita.'},
+    {show:'ABFI', news:'ABFI', explode:1, t:'Lixe e aplique a fita de borda',
+     body:`<p>Lixe as bordas com lixa 120 para tirar farpas. Aplique a fita onde a lista indica: frente das laterais (A), frente da base (B), as 4 bordas das portas (F) e a ponta da frente dos rodapés laterais (I).</p><ul><li>Encoste a fita com 1 cm sobrando em cada ponta.</li><li>Passe o ferro na temperatura de algodão, devagar, e esfregue um pano por cima enquanto esfria.</li><li>Corte as sobras com estilete, com a lâmina deitada, e lixe de leve com 220.</li></ul>`,
+     err:'Ferro quente demais queima a lâmina. Se a cola não grudar, aumente aos poucos.'},
+    {show:'GHI', news:'GHI', t:'Monte o rodapé recuado',
+     body:`<p><span class="term">Rodapé recuado</span> <span class="term-x">(base baixa, 5 cm para dentro da frente, para caber a ponta do pé e afastar o móvel do piso molhado)</span>. As peças G e H ficam entre as duas peças I.</p><ul><li>Faça 2 pré-furos de 3 mm em cada ponta das peças I, a 9 mm da ponta.</li><li>Passe cola nas pontas de G e H, encaixe e parafuse (2 parafusos por canto).</li><li>Meça as duas diagonais do retângulo. Se forem iguais, está no <span class="term">esquadro</span> <span class="term-x">(todos os cantos a 90°)</span>.</li></ul>`,
+     err:'Colocar a frente G no lugar errado. Ela vai na ponta das peças I que tem fita.'},
+    {show:'AB', news:'AB', single:true, t:'Prenda a base na primeira lateral',
+     body:`<p>A base (B) fica entre as laterais, com a face de baixo alinhada à borda de baixo da lateral.</p><ul><li>Fure 2 furos de 8 mm × 15 mm de fundo na borda da base para as cavilhas, a 8 cm de cada ponta. Use os marcadores para achar o furo na lateral.</li><li>Na lateral, trace uma linha a ${f1(T/2)} cm da borda de baixo e marque 4 parafusos sobre ela. Faça pré-furo de 3 mm e escareie por fora.</li><li>Cola nas cavilhas e na borda, encaixe e parafuse.</li></ul>`,
+     err:'Parafuso torto que sai pela face da base. Faça o pré-furo bem na vertical, segurando o esquadro ao lado da broca.'},
+    {show:'ABA', news:'A', after:'AB', t:'Coloque a segunda lateral',
+     body:`<p>Repita o passo anterior do outro lado. Deite o conjunto de lado no chão para parafusar com o peso a seu favor.</p><p>A frente da base e a frente das laterais precisam ficar na mesma linha. Passe a mão: não pode ter degrau.</p>`,
+     err:'Montar a lateral com a fita virada para trás. A fita sempre fica na frente.'},
+    {show:'ABDE', news:'DE', after:'AB', t:'Prenda as travessas do fundo',
+     body:`<p>As travessas D (em cima) e E (embaixo, apoiada na base) ficam em pé, rente à borda de trás das laterais. O vão entre elas deixa passar esgoto e água.</p><ul><li>Em cada ponta: 1 cavilha no meio e 2 parafusos pela lateral.</li><li>A travessa D fica rente ao topo das laterais: é nela que a pia apoia atrás.</li><li>Prenda a E também com 3 parafusos por baixo da base.</li></ul>`,
+     err:'Deixar a D abaixo do topo. Passe uma régua por cima: lateral e travessa têm que ficar no mesmo plano, senão a pia balança.'},
+    {show:'ABCDE', news:'C', after:'ABDE', t:'Coloque a travessa da frente e confira o esquadro',
+     body:`<p>A travessa C fica em pé, rente ao topo e à frente das laterais. Ela segura a borda da frente da pia e trava a abertura.</p><ul><li>1 cavilha e 2 parafusos em cada ponta.</li><li>Antes da cola secar, meça as diagonais da frente (canto de cima à esquerda até o de baixo à direita, e o contrário). Se uma for maior, empurre esse canto até ficarem iguais.</li></ul>`,
+     err:'Deixar a cola secar com o móvel torto. Depois de seca, não corrige mais e as portas não fecham alinhadas.'},
+    {show:'ABCDEGHI', news:'GHI', after:'ABCDE', t:'Junte o corpo ao rodapé',
+     body:`<p>Vire o corpo de cabeça para baixo sobre um pano. Apoie o rodapé em cima da base, com as peças I alinhadas por fora das laterais e a frente G recuada ${f1(p.recuo)} cm da frente do corpo.</p><ul><li>Parafuse por dentro da base, descendo até a G e a H: 3 parafusos em cada.</li><li>Confira o recuo com a trena nos dois cantos.</li></ul>`,
+     err:'Usar parafuso comprido demais. Com 40 mm ele entra 22 mm no rodapé, que é o certo.'},
+    {show:'ABCDEGHI', news:'ABCDEGHI', t:'Faça o acabamento antes das portas',
+     body:`<p>Siga a seção <a href="#acabamento">acabamento e proteção contra água</a>: lixa 220, pó removido, 3 demãos de verniz por dentro e por fora. Envernize as portas deitadas, separadas, um lado de cada vez.</p>`,
+     err:'Pular a borda de baixo do rodapé e o topo das laterais. É por onde a água entra primeiro.'},
+    {show:'F', news:'F', hinges:true, explode:0.5, t:'Fure o caneco e instale as dobradiças nas portas',
+     body:`<p><span class="term">Dobradiça de caneco</span> <span class="term-x">(dobradiça escondida que entra num furo redondo de 35 mm na face de dentro da porta)</span>.</p><ul><li>Marque o centro do furo a 2,2 cm da borda da porta (lado das laterais) e a 10 cm do topo e da base.</li><li>Fure com a Forstner 35 mm até 12 mm de fundo. Enrole fita crepe na broca a 12 mm para servir de limite.</li><li>Encaixe a dobradiça no furo, deixe ela no esquadro com a borda e parafuse com 3,5 × 14 mm.</li></ul>`,
+     err:`Furar fundo demais e atravessar a porta de ${v.ePorta} mm. Pare a cada 3 mm e meça.`},
+    {show:'ABCDEFGHI', news:'F', after:'ABCDEGHI', hinges:true, handles:true, t:'Pendure as portas e coloque os puxadores',
+     body:`<p>Com a porta encostada no corpo e 2 mm acima da base, marque e parafuse o calço de cada dobradiça na lateral. Ajuste pelos 3 parafusos da dobradiça até a folga do meio ficar igual de cima a baixo (${f1(p.gap*10)} mm).</p><ul><li>Puxador: vertical, a 4 cm da borda do meio e com o furo de cima a 6 cm do topo da porta.</li></ul>`,
+     err:'Apertar tudo antes de alinhar. Deixe os parafusos de regulagem soltos até as duas portas fecharem certas.'},
+    {show:'ABCDEFGHI', news:'ABCDEFGHI', hinges:true, handles:true, t:'Posicione na parede, nivele e fixe',
+     body:`<p>Encoste o móvel na parede, centrado com os canos. Confira com o nível em cima das laterais, de lado a lado e da frente para trás. Se o piso for torto, calce embaixo do rodapé com lâminas de madeira envernizadas.</p><ul><li>Fure a parede pela travessa D: 2 furos de 6 mm, a 10 cm de cada lateral, bucha nº 6 e parafuso 5,0 × 50 mm.</li></ul>`,
+     err:'Furar um cano. Os canos sobem na vertical a partir dos pontos de água; mantenha os furos longe dessa linha e, se tiver, use um detector de metal.'},
+  ];
+}
+function renderSteps(){
+  const S=stepsData(P);
+  $('steps').innerHTML=S.map((s,i)=>{
+    const chips=[...new Set(s.news.split(''))].map(c=>`<span class="tag"><span class="sw" style="background:${COLORS[c]};margin-right:4px"></span>${c} · ${P.byCod[c].nome.toLowerCase()}</span>`).join('');
+    return `<li class="step"><div class="step-img" id="stepImg${i}">ilustração ${i+1}</div><div style="min-width:0"><div class="step-n">passo ${i+1} de ${S.length}</div><h3>${s.t}</h3><div class="pieces-chips">${chips}</div>${s.body}<div class="err"><b>erro comum</b>${s.err}</div></div></li>`;
+  }).join('');
+}
+
+function renderFinish(){
+  const mdf=P.v.mat==='mdf';
+  $('finish').innerHTML = mdf ? `
+  <div class="card"><h3>O que aplicar (MDF RU)</h3><ol><li>Lixe tudo com 220 e tire o pó com pano úmido bem torcido.</li><li><b>Fundo preparador</b>: 1 demão em faces e bordas. Secagem: 4 h.</li><li><b>Esmalte à base d'água</b>: 3 demãos finas, com rolo de espuma. Lixa 320 de leve entre demãos. Secagem entre demãos: 4 h; cura para uso: 72 h.</li></ol><p class="note">As bordas do MDF absorvem água como esponja: passe 1 demão extra em todas as bordas sem fita.</p></div>`
+  : `
+  <div class="card"><h3>O que aplicar</h3><ol><li>Lixe tudo com 220 no sentido do veio. Tire o pó com pano úmido bem torcido.</li><li><b>Demão 1 (selador)</b>: verniz marítimo diluído com 10% de aguarrás. Fecha os poros. Secagem: 8 h.</li><li>Lixa 320 bem de leve, só para tirar a aspereza. Tire o pó.</li><li><b>Demãos 2 e 3</b>: verniz puro, camadas finas, pincel no sentido do veio. Secagem: 8 h entre demãos.</li><li>Cura completa para receber água e peso: <b>72 h</b>.</li></ol><p class="note">Os tempos são típicos. Siga o rótulo da lata se for diferente. Pinte com a janela aberta.</p></div>`
+  + `
+  <div class="card"><h3>Onde caprichar</h3><ul><li><b>Borda de baixo do rodapé</b>: é a parte que toca o piso molhado. Passe 1 demão extra.</li><li><b>Topo das laterais e travessas</b>: ficam embaixo da borda da pia, onde pinga água. Demão extra.</li><li><b>Por dentro da base</b>: se o sifão vazar, é ela que molha.</li><li><b>Bordas sem fita</b>: o miolo da chapa puxa água. Todas recebem as 3 demãos.</li></ul></div>
+  <div class="card"><h3>Onde vedar com silicone</h3><ul><li>Entre a pia e o topo do móvel: um cordão contínuo por baixo da borda (passo na seção 10).</li><li>Entre o rebordo da pia e a parede: cordão fino, alisado com o dedo molhado em água com detergente.</li><li>Junta do rodapé com o piso, na frente e nas laterais: impede a água do pano de chão de entrar por baixo.</li></ul><p class="note">Não vede o fundo aberto. O vão entre as travessas D e E é a ventilação do móvel e o acesso ao sifão.</p></div>`;
+}
+
+function renderInstall(){
+  const p=P;
+  $('install').innerHTML=`
+  <div class="card"><h3>1 · Fixar a pia</h3><ol><li>Espere a cura do verniz (72 h).</li><li>Coloque a pia sem silicone para testar: ela sobra ${f1(p.SOBRA)} cm nas laterais e cobre ${f1(p.SOBRA)} cm à frente das portas. A cuba não pode encostar em nenhuma travessa.</li><li>Instale a válvula e a torneira na pia agora, com ela ainda fora do móvel: é muito mais fácil.</li><li>Tire a pia, limpe o topo do móvel com álcool e passe um cordão de silicone neutro de 5 mm em cima das laterais e das travessas C e D.</li><li>Baixe a pia de uma vez, reta, e aperte com as mãos. Limpe o excesso com pano úmido.</li><li>Não use a pia por 24 h.</li></ol></div>
+  <div class="card"><h3>2 · Ligar a água e o esgoto</h3><ol><li>Feche o registro geral antes de mexer.</li><li><b>Torneira</b>: enrole 6 voltas de veda-rosca no ponto de água da parede, no sentido da rosca. Rosqueie o flexível na mão e dê mais 1/4 de volta com a chave.</li><li><b>Sifão</b>: encaixe a parte de cima na válvula com a borracha que vem junto. Estique ou encolha o sifão até a saída entrar no cano da parede (${f1(p.v.esgH)} cm do chão ${badge(['esgH'])}). A curva tem que ficar mais baixa que as duas pontas, para guardar água.</li><li>Aperte as porcas do sifão só com a mão. Plástico trinca com chave.</li></ol></div>
+  <div class="card"><h3>3 · Teste de vazamento</h3><ol><li>Abra o registro devagar. Olhe as conexões do flexível por 1 minuto.</li><li>Tampe o ralo, encha a cuba até a metade e solte toda a água de uma vez.</li><li>Passe papel toalha seco em volta de cada conexão do sifão e do flexível. Qualquer mancha é vazamento: aperte mais 1/4 de volta e repita.</li><li>Deixe uma folha de papel toalha na base, embaixo do sifão, por 24 h. Se ficar seca, está pronto.</li></ol></div>`;
+}
+
+function renderFinal(){
+  const items=['Todas as premissas foram medidas e marcadas como conferidas antes do corte.','O selo "medidas conferidas" apareceu no topo da página.','O móvel está no nível nos dois sentidos e preso na parede pela travessa D.','As portas abrem e fecham sem raspar, com folga igual no meio.','O verniz curou por 72 h antes da pia receber água.','O silicone entre a pia e o móvel curou por 24 h.','A cuba não encosta em nenhuma travessa.','O teste do papel toalha passou 24 h sem mancha.','O sifão faz a curva para baixo e cheira a nada.','O fundo aberto entre as travessas D e E ficou livre para ventilar.'];
+  let saved={}; try{saved=JSON.parse(localStorage.getItem(STORE+'-chk')||'{}');}catch(e){}
+  $('finalCheck').innerHTML=items.map((t,i)=>`<li><label for="fc${i}"><input type="checkbox" id="fc${i}" data-fc="${i}" ${saved[i]?'checked':''}><span>${t}</span></label></li>`).join('');
+}
+
+function renderLegend(){
+  $('legend').innerHTML=P.pieces.map(pc=>`<span><span class="sw" style="background:${COLORS[pc.cod]}"></span>${pc.cod} ${pc.nome.toLowerCase()}</span>`).join('')+'<span><span class="sw" style="background:#f1efea"></span>pia (simplificada)</span>';
+}
+
+/* ---------- eventos ---------- */
+let tmr=null;
+document.addEventListener('input',e=>{
+  const k=e.target.dataset&&e.target.dataset.k; if(!k) return;
+  const m=PREM.find(x=>x.k===k);
+  let val = m.opts ? e.target.value : parseFloat(String(e.target.value).replace(',','.'));
+  if(!m.opts){ if(!isFinite(val)) return; val=Math.min(m.max,Math.max(m.min,val)); }
+  state.v[k]=val; save();
+  clearTimeout(tmr); tmr=setTimeout(renderAll,250);
+});
+document.addEventListener('change',e=>{
+  const ok=e.target.dataset&&e.target.dataset.ok;
+  if(ok){ state.ok[ok]=e.target.checked; save(); renderAll(); return; }
+  const fc=e.target.dataset&&e.target.dataset.fc;
+  if(fc!==undefined){ let s={}; try{s=JSON.parse(localStorage.getItem(STORE+'-chk')||'{}');}catch(x){} s[fc]=e.target.checked; try{localStorage.setItem(STORE+'-chk',JSON.stringify(s));}catch(x){} }
+});
+document.addEventListener('click',e=>{
+  if(e.target.id==='btnDefaults'){ PREM.forEach(p=>state.v[p.k]=p.def); state.ok={}; save(); renderAll(); }
+});
+// imprimir: só funciona fora do visualizador (arquivo aberto direto no navegador)
+(function(){ let top=false; try{top=window.self===window.top;}catch(e){} if(top){ $('btnPrint').hidden=false; $('btnPrint').onclick=()=>window.print(); } })();
+
+/* ============================================================
+   3D
+   ============================================================ */
+let R=null, scene, camera, controls, bodyGroup, sinkGroup, doorObjs=[], pickables=[], explodeT=0, explodeTarget=0, raf=null;
+const cssVar=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+function makeGroup(p,opt){
+  opt=opt||{};
+  const g=new THREE.Group(); const meshes=[];
+  const edgeCol=new THREE.Color(opt.edge||'#222');
+  p.inst.forEach((i,idx)=>{
+    if(opt.only && !opt.only.includes(i.cod)) return;
+    const ghost = opt.news && !opt.news.includes(i.cod);
+    const geo=new THREE.BoxGeometry(i.size[0],i.size[1],i.size[2]);
+    const mat=new THREE.MeshStandardMaterial({color:ghost?'#c9c9cf':COLORS[i.cod],roughness:.75,metalness:0,transparent:ghost,opacity:ghost?.28:1});
+    const m=new THREE.Mesh(geo,mat);
+    const c=[i.min[0]+i.size[0]/2-p.W/2, i.min[1]+i.size[1]/2, i.min[2]+i.size[2]/2-(p.D+p.TP)/2];
+    m.position.set(...c);
+    m.userData={cod:i.cod,base:new THREE.Vector3(...c),ex:new THREE.Vector3(...i.ex),label:pieceLabel(p,i.cod)};
+    const e=new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:edgeCol,transparent:true,opacity:ghost?.2:.55}));
+    m.add(e);
+    g.add(m); meshes.push(m);
+    if(i.cod==='F' && (opt.hinges!==false)){
+      const left=i.min[0]<p.W/2;
+      const hx = left ? i.min[0]+2.2 : i.max[0]-2.2;
+      if(opt.hinges){
+        [i.min[1]+10, i.max[1]-10].forEach(hy=>{
+          const cyl=new THREE.Mesh(new THREE.CylinderGeometry(1.75,1.75,1.3,24),new THREE.MeshStandardMaterial({color:COLORS.hinge,metalness:.5,roughness:.4}));
+          cyl.rotation.x=Math.PI/2;
+          const hp=new THREE.Vector3(hx-p.W/2,hy,i.min[2]-0.5-(p.D+p.TP)/2);
+          cyl.position.copy(hp); cyl.userData={cod:'F',base:hp.clone(),ex:new THREE.Vector3(...i.ex),label:{n:'Dobradiça de caneco 35 mm',d:'centro a 2,2 cm da borda · 10 cm do topo e da base'}};
+          g.add(cyl); meshes.push(cyl);
+        });
+      }
+      if(opt.handles){
+        const hxh = left ? i.max[0]-4 : i.min[0]+4;
+        const hdl=new THREE.Mesh(new THREE.BoxGeometry(1,11,1.2),new THREE.MeshStandardMaterial({color:COLORS.handle,metalness:.6,roughness:.35}));
+        const hp=new THREE.Vector3(hxh-p.W/2,i.max[1]-6-4.8,i.max[2]+1-(p.D+p.TP)/2);
+        hdl.position.copy(hp); hdl.userData={cod:'F',base:hp.clone(),ex:new THREE.Vector3(...i.ex),label:{n:'Puxador alça 96 mm',d:'a 4 cm da borda do meio'}};
+        g.add(hdl); meshes.push(hdl);
+      }
+    }
+  });
+  return {g,meshes};
+}
+function pieceLabel(p,cod){ const pc=p.byCod[cod]; return {n:`${cod} · ${pc.nome}`, d:`${f1(pc.c)} × ${f1(pc.l)} cm · ${pc.e} mm`}; }
+
+function makeSink(p){
+  const s=p.sink, g=new THREE.Group(), zc=(p.D+p.TP)/2, xc=p.W/2;
+  const mat=new THREE.MeshStandardMaterial({color:'#f1efea',roughness:.35,metalness:0,side:THREE.DoubleSide});
+  const shape=new THREE.Shape();
+  shape.moveTo(s.x0,-s.z0); shape.lineTo(s.x1,-s.z0); shape.lineTo(s.x1,-s.z1); shape.lineTo(s.x0,-s.z1); shape.lineTo(s.x0,-s.z0);
+  const hole=new THREE.Path(); hole.absellipse(s.cx,-s.cz,s.cubaL/2-1.5,s.cubaC/2-1.5,0,Math.PI*2,false); shape.holes.push(hole);
+  const top=new THREE.Mesh(new THREE.ExtrudeGeometry(shape,{depth:s.t,bevelEnabled:false,curveSegments:48}),mat);
+  top.rotation.x=-Math.PI/2; top.position.set(-xc,s.y,-zc);
+  g.add(top);
+  const bowl=new THREE.Mesh(new THREE.SphereGeometry(1,48,20,0,Math.PI*2,Math.PI/2,Math.PI/2),mat);
+  bowl.scale.set(s.cubaL/2-1.5,Math.max(1,s.cubaP-s.t),s.cubaC/2-1.5); bowl.position.set(s.cx-xc,s.y+s.t,s.cz-zc);
+  g.add(bowl);
+  const drain=new THREE.Mesh(new THREE.CylinderGeometry(2,2,0.4,24),new THREE.MeshStandardMaterial({color:'#9aa0a6',metalness:.6,roughness:.3}));
+  drain.position.set(s.cx-xc,s.y+s.t-(s.cubaP-s.t)+0.3,s.cz-zc); g.add(drain);
+  const rb=new THREE.Mesh(new THREE.BoxGeometry(s.x1-s.x0,3,1.5),mat); rb.position.set((s.x0+s.x1)/2-xc,s.y+s.t+1.5,s.z0+0.75-zc); g.add(rb);
+  const rl=new THREE.Mesh(new THREE.BoxGeometry(1.5,3,s.z1-s.z0),mat); rl.position.set(s.x0+0.75-xc,s.y+s.t+1.5,(s.z0+s.z1)/2-zc); g.add(rl);
+  const chrome=new THREE.MeshStandardMaterial({color:'#c4c8cc',metalness:.85,roughness:.2});
+  const body=new THREE.Mesh(new THREE.CylinderGeometry(1.6,1.8,14,24),chrome); body.position.set(s.torX-xc,s.y+s.t+7,s.torZ-zc); g.add(body);
+  const spout=new THREE.Mesh(new THREE.CylinderGeometry(0.9,0.9,12,16),chrome); spout.rotation.x=Math.PI/2; spout.position.set(s.torX-xc,s.y+s.t+13,s.torZ+6-zc); g.add(spout);
+  const lever=new THREE.Mesh(new THREE.BoxGeometry(0.8,0.8,6),chrome); lever.position.set(s.torX-xc,s.y+s.t+15,s.torZ-2-zc); lever.rotation.x=0.4; g.add(lever);
+  g.traverse(o=>{ if(o.isMesh){ o.userData.label={n:'Pia de sobrepor (simplificada)',d:`${f1(p.v.pW)} × ${f1(p.v.pD)} cm · cuba ${f1(s.cubaL)} × ${f1(s.cubaC)} × ${f1(s.cubaP)} cm`}; o.userData.base=o.position.clone(); o.userData.ex=new THREE.Vector3(0,30,0);} });
+  return g;
+}
+
+function lights(sc){
+  sc.add(new THREE.HemisphereLight(0xffffff,0x8a8076,.85));
+  const d=new THREE.DirectionalLight(0xffffff,.75); d.position.set(60,120,90); sc.add(d);
+  const d2=new THREE.DirectionalLight(0xffffff,.25); d2.position.set(-80,40,-60); sc.add(d2);
+}
+
+function init3D(){
+  const host=$('viewer');
+  try{
+    R=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  }catch(e){ host.insertAdjacentHTML('beforeend','<div class="nogl">Este aparelho não conseguiu abrir o 3D. As ilustrações dos passos e as tabelas continuam valendo.</div>'); R=null; return; }
+  R.setPixelRatio(Math.min(2,window.devicePixelRatio||1));
+  host.prepend(R.domElement);
+  scene=new THREE.Scene(); lights(scene);
+  camera=new THREE.PerspectiveCamera(35,1,1,2000);
+  controls=new THREE.OrbitControls(camera,R.domElement);
+  controls.enableDamping=true; controls.dampingFactor=.08; controls.minDistance=60; controls.maxDistance=600; controls.target.set(0,45,0);
+  resetCam();
+  const ro=new ResizeObserver(()=>{ const w=host.clientWidth,h=host.clientHeight; R.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); });
+  ro.observe(host);
+  const ray=new THREE.Raycaster(), mouse=new THREE.Vector2(), tip=$('tip');
+  const pick=(ev)=>{
+    const r=R.domElement.getBoundingClientRect();
+    mouse.x=((ev.clientX-r.left)/r.width)*2-1; mouse.y=-((ev.clientY-r.top)/r.height)*2+1;
+    ray.setFromCamera(mouse,camera);
+    const hit=ray.intersectObjects(pickables.filter(o=>o.visible&&(!o.parent||o.parent.visible)),false)[0];
+    pickables.forEach(o=>{ if(o.material&&o.material.emissive) o.material.emissive.setHex(0x000000); });
+    if(hit&&hit.object.userData.label){
+      const L=hit.object.userData.label;
+      if(hit.object.material.emissive) hit.object.material.emissive.setHex(0x3a0a32);
+      tip.innerHTML=`${esc(L.n)}<small>${esc(L.d)}</small>`; tip.style.left=(ev.clientX-r.left)+'px'; tip.style.top=(ev.clientY-r.top)+'px'; tip.hidden=false;
+    } else tip.hidden=true;
+  };
+  R.domElement.addEventListener('pointermove',pick);
+  R.domElement.addEventListener('pointerdown',e=>{ if(e.pointerType!=='mouse') pick(e); });
+  R.domElement.addEventListener('pointerleave',()=>{ tip.hidden=true; });
+  const loop=()=>{ raf=requestAnimationFrame(loop);
+    if(Math.abs(explodeT-explodeTarget)>0.001){ explodeT+= (explodeTarget-explodeT)*0.14; applyExplode(); }
+    controls.update(); R.render(scene,camera); };
+  loop();
+  $('btnExplode').onclick=e=>{ explodeTarget=explodeTarget?0:1; e.currentTarget.setAttribute('aria-pressed',explodeTarget?'true':'false'); };
+  $('btnSink').onclick=e=>{ sinkGroup.visible=!sinkGroup.visible; e.currentTarget.setAttribute('aria-pressed',sinkGroup.visible); e.currentTarget.textContent='Pia: '+(sinkGroup.visible?'mostrando':'oculta'); };
+  $('btnDoors').onclick=e=>{ const vis=!doorObjs[0]||!doorObjs[0].visible; doorObjs.forEach(o=>o.visible=vis); e.currentTarget.setAttribute('aria-pressed',vis); e.currentTarget.textContent='Portas: '+(vis?'mostrando':'ocultas'); };
+  $('btnReset').onclick=resetCam;
+}
+function resetCam(){ if(!camera) return; camera.position.set(135,135,205); controls.target.set(0,46,0); controls.update(); }
+function applyExplode(){
+  const t=explodeT;
+  bodyGroup&&bodyGroup.children.forEach(m=>{ if(m.userData.base) m.position.copy(m.userData.base).addScaledVector(m.userData.ex,t); });
+  sinkGroup&&sinkGroup.children.forEach(m=>{ if(m.userData.base) m.position.copy(m.userData.base).addScaledVector(m.userData.ex,t); });
+}
+function rebuild3D(){
+  if(!R) return;
+  const sinkVis=sinkGroup?sinkGroup.visible:true, doorVis=doorObjs[0]?doorObjs[0].visible:true;
+  [bodyGroup,sinkGroup].forEach(g=>{ if(g){ scene.remove(g); g.traverse(o=>{o.geometry&&o.geometry.dispose();o.material&&o.material.dispose&&o.material.dispose();}); }});
+  const edge=cssVar('--fg')||'#222';
+  const b=makeGroup(P,{edge,hinges:true,handles:true}); bodyGroup=b.g; scene.add(bodyGroup);
+  sinkGroup=makeSink(P); sinkGroup.visible=sinkVis; scene.add(sinkGroup);
+  doorObjs=b.meshes.filter(m=>m.userData.cod==='F'); doorObjs.forEach(o=>o.visible=doorVis);
+  pickables=b.meshes.concat(sinkGroup.children);
+  applyExplode();
+}
+
+/* ---------- imagens estáticas (resumo + passos) ---------- */
+let shotR=null, shotTmr=null;
+function scheduleShots(){ clearTimeout(shotTmr); shotTmr=setTimeout(makeShots,120); }
+function makeShots(){
+  try{ if(!shotR){ shotR=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true,alpha:true}); shotR.setPixelRatio(1); } }catch(e){ return; }
+  const surf=cssVar('--surface')||'#ffffff', edge=cssVar('--fg')||'#222';
+  const snap=(build,w,h,camPos)=>{
+    shotR.setSize(w,h,false); shotR.setClearColor(new THREE.Color(surf),1);
+    const sc=new THREE.Scene(); lights(sc); const grp=build(); sc.add(grp);
+    const box=new THREE.Box3().setFromObject(grp), c=box.getCenter(new THREE.Vector3()), sz=box.getSize(new THREE.Vector3());
+    const cam=new THREE.PerspectiveCamera(30,w/h,1,3000);
+    const dir=new THREE.Vector3(...(camPos||[0.62,0.55,1])).normalize();
+    const rad=sz.length()/2; const dist=rad/Math.sin(THREE.MathUtils.degToRad(15))*1.02;
+    cam.position.copy(c).addScaledVector(dir,dist); cam.lookAt(c);
+    shotR.render(sc,cam); const url=shotR.domElement.toDataURL('image/png');
+    sc.traverse(o=>{o.geometry&&o.geometry.dispose();o.material&&o.material.dispose&&o.material.dispose();});
+    return url;
+  };
+  // resumo: gabinete com a pia
+  const heroUrl=snap(()=>{ const g=new THREE.Group(); g.add(makeGroup(P,{edge,hinges:true,handles:true}).g); g.add(makeSink(P)); return g; },960,720);
+  $('heroShot').innerHTML=`<img alt="Vista 3D do gabinete montado com a pia em cima" src="${heroUrl}">`;
+  stepsData(P).forEach((s,i)=>{
+    const only=[...new Set(s.show.split(''))];
+    const news=s.news.split('');
+    const url=snap(()=>{
+      const r=makeGroup(P,{edge,only,news:s.news==='ABCDEFGHI'?null:news,hinges:!!s.hinges,handles:!!s.handles});
+      if(s.explode) r.meshes.forEach(m=>m.position.copy(m.userData.base).addScaledVector(m.userData.ex,s.explode));
+      if(s.single){ r.meshes.forEach(m=>{ if(m.userData.cod==='A' && m.userData.base.x>0) m.visible=false; }); }
+      if(s.show==='F'){ r.meshes.forEach(m=>{ m.rotation.y+=0; }); }
+      return r.g;
+    },640,480, s.show==='F'?[-0.35,0.35,-1]:null);
+    const el=$('stepImg'+i); if(el) el.innerHTML=`<img alt="Ilustração do passo ${i+1}: ${esc(s.t)}" src="${url}">`;
+  });
+}
+const mq=window.matchMedia('(prefers-color-scheme: dark)');
+mq.addEventListener&&mq.addEventListener('change',()=>{ if(window.THREE){ rebuild3D(); scheduleShots(); } });
+
+/* ---------- start ---------- */
+if(window.THREE && THREE.OrbitControls){ init3D(); }
+else { $('viewer').insertAdjacentHTML('beforeend','<div class="nogl">O 3D não carregou (sem internet?). As tabelas e os passos continuam valendo.</div>'); }
+renderAll();
+if(!window.THREE){ $('heroShot').innerHTML='<span class="muted mono" style="font-size:.8rem">vista 3D indisponível sem internet</span>'; }
+</script>
